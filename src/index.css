@@ -66,3 +66,24 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.container {
+  max-width: 800px;
+}
+
+.row {
+  display: flex;
+}
+
+.square-row {
+  margin-bottom: 15px;
+}
+
+.square {
+  padding: 10px;
+  margin-left: 15px;
+  height: 50px;
+  width: 50px;
+  background-color: #535bf2;
+  color: #ffffff;
+}
