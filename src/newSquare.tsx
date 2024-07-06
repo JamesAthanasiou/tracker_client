@@ -1,4 +1,3 @@
-// export default Square;
 type NewSquareProps = {
     value: number | null;
     onSquareClick: () => void;

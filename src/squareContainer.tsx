@@ -1,9 +1,16 @@
-import { useState } from "react";
 import NewSquare from "./NewSquare";
 
-export default function SquareContainer() {
+type SquareContainerProps = {
+    numRows: number;
+    numCols: number;
+    target: number;
+    squares: Array<number|null>;
+    onPlay: (nextSquares: Array<number|null>) => void
+}
+
+export default function SquareContainer({numRows, numCols, target, squares, onPlay}: SquareContainerProps) {
     
-    const [squares, setSquares] = useState<Array<number|null>>(Array<number|null>(9).fill(null));
+    // const [squares, setSquares] = useState<Array<number|null>>(Array<number|null>(9).fill(null));
 
     function handleClick(i: number): void {
         if (win) {
@@ -16,19 +23,17 @@ export default function SquareContainer() {
         } else {
             nextSquares[i] = null;
         }
-        setSquares(nextSquares);
+        // setSquares(nextSquares);
+        onPlay(nextSquares);
+        // TODO: At set history
     }
-
-    const numRows = 3;
-    const numCols = 9;
-    const target = 20;
 
     const win = (calcWin(squares, numRows, numCols, target));
     let status;
     if (win) {
         status = `You have winnered with a score of ${win}`;
     } else {
-        status = `Try to beat the target of ${target} in any row`;
+        status = `Try to beat the target of ${target} in any row!`;
     }
     console.log(win);
 
@@ -41,7 +46,11 @@ export default function SquareContainer() {
             {rangeRows.map((i) => (
                 <div className="row square-row" key={`row-${i}`}>
                     {rangeCols.map((j) => (
-                        <NewSquare key={`col-${i*numCols + j}`} value={squares[i*numCols + j]} onSquareClick={() => handleClick(i*numCols + j)} />
+                        <NewSquare 
+                            key={`col-${i*numCols + j}`} 
+                            value={squares[i*numCols + j]} 
+                            onSquareClick={() => handleClick(i*numCols + j)} 
+                        />
                     ))}
                 </div>
             ))}
