@@ -18,12 +18,12 @@ export default function Game(): JSX.Element {
       setCurrentMove(nextHistory.length - 1);
     }
 
-    function jumpTo(nextMove: number): any {
+    function jumpTo(nextMove: number): void {
       setCurrentMove(nextMove);
       // todo
     }
 
-    const moves = history.map((squares, move) => {
+    const moves = history.map((_, move) => {
       let label;
       if (move > 0) {
         label = `Go to move ${move}`;

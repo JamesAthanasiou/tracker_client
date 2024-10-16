@@ -23,15 +23,13 @@ export default function SquareContainer({numRows, numCols, target, squares, onPl
         } else {
             nextSquares[i] = null;
         }
-        // setSquares(nextSquares);
         onPlay(nextSquares);
-        // TODO: At set history
     }
 
     const win = (calcWin(squares, numRows, numCols, target));
     let status;
     if (win) {
-        status = `You have winnered with a score of ${win}`;
+        status = `You have won with a score of ${win}`;
     } else {
         status = `Try to beat the target of ${target} in any row!`;
     }
@@ -62,9 +60,6 @@ export default function SquareContainer({numRows, numCols, target, squares, onPl
 // Just say win condition is per row. Can't do it easily for row and column because we didn't start as a grid. Go back?
 function calcWin(squares: (number | null)[], numRows: number, numCols: number, target: number): number | null {
     let res: number = 0;
-
-    // let colScore = (Array.from({length:numCols}, (_)=>0));
-    // let rowScore = (Array.from({length:numRows}, (_)=>0));
 
     for (let i = 0; i < numRows; i += 1) {
         res = squares
