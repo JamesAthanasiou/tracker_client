@@ -1,6 +1,13 @@
 import { useState } from "react";
 
-async function getData(): Promise<string> {
+/*
+TODO:
+- break out data fetching logic
+- build general service for handling api calls
+- break out types
+*/
+
+async function getData(): Promise<unknown[]> {
     const url = `${import.meta.env.VITE_API_URL}/person/show-all`
     console.log(url)
     try {
@@ -10,12 +17,11 @@ async function getData(): Promise<string> {
         }
     
         const json = await response.json();
-        console.log(json);
-        return JSON.stringify(json);
+        return json;
     } catch (error) {
         console.error({message: getErrorMessage(error)});
     }
-    return '';
+    return [];
 }
 
 function getErrorMessage(error: unknown): string {
@@ -23,19 +29,33 @@ function getErrorMessage(error: unknown): string {
 	return String(error)
 }
 
-export function TestFetchBlock () {
-    const [someValue, setSomeValue] = useState('');
+type Person = {
+    id: string;
+    first_name: string;
+    last_name: string;
+    gender: 'man' | 'woman' | 'other';
+}
 
-    async function someGuy() {
-        setSomeValue(await getData())
+export function TestFetchBlock () {
+    const [people, setPeople] = useState<Person[]>([]);
+    // const [someVal, setSomeVal] = useState('');
+
+    async function getValues() {
+        const res = (await getData()) as Person[];
+        console.log(res);
+        setPeople(res);
     }
 
     return (
         <div>
-            <button onClick={someGuy}>
+            <button onClick={getValues}>
                 Click me
             </button>
-            <p>{someValue}</p>
+            { people.map(person => (
+                <div>
+                    <p>{person['first_name']}</p>
+                </div>
+            ))}
         </div>
     )
 }
