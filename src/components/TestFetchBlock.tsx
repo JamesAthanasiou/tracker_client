@@ -9,7 +9,6 @@ TODO:
 
 async function getData(): Promise<unknown[]> {
     const url = `${import.meta.env.VITE_API_URL}/person/show-all`
-    console.log(url)
     try {
         const response = await fetch(url);
         if (!response.ok) {

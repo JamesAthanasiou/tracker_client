@@ -1,5 +1,8 @@
 import { createLazyFileRoute } from '@tanstack/react-router'
-import { TestFetchBlock } from '../TestFetchBlock'
+import { TestFetchBlock } from '../components/TestFetchBlock'
+import { TestPerson } from '../components/TestPerson'
+import { PersonForm } from '../components/PersonForm'
+import AForm from '../components/Form'
 
 export const Route = createLazyFileRoute('/about')({
   component: About,
@@ -10,6 +13,7 @@ function About() {
     <div>
       <div className="p-2">Hello from About!</div>
       <TestFetchBlock />
+      <AForm />
     </div>
   )
 }
