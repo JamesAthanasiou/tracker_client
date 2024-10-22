@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { createPerson } from "../api";
 
 interface Person {
     id?: number;
@@ -20,42 +21,25 @@ export default function AForm() {
 
     const handleSubmit = (event : React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        console.log(values)
-
-        onSubmitUsername(values)
+        onSubmit(values)
     }
 
-    async function onSubmitUsername(data: Person){
-        // TODO this should be moved out into its own routing file or something.
-        const url = `${import.meta.env.VITE_API_URL}/person/create`;
-
-        const myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-    
-        try {
-          const response = await fetch(url, {
-            method: "POST",
-            body: JSON.stringify(data),
-            headers: myHeaders,
-           });
-          console.log(response);
-        } catch (error) {
-          console.error(error);
-        }
-      }
+    async function onSubmit(data: Person){
+        createPerson(data)
+    }
 
     return (
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="first_name">First Name:</label>
-                <input type="text" onChange={handleChange} name="first_name" value={values.first_name}/>
-                <br/>
-                <label htmlFor="last_name">Last Name:</label>
-                <input type="text" onChange={handleChange} name="last_name" value={values.last_name}/>
-                <br/>
-                <label htmlFor="gender">Gender:</label>
-                <input type="text" onChange={handleChange} name="gender" value={values.gender}/>
-                <br/>
-                <button type="submit">Submit</button>
-            </form>
+        <form onSubmit={handleSubmit}>
+            <label htmlFor="first_name">First Name:</label>
+            <input type="text" onChange={handleChange} name="first_name" value={values.first_name}/>
+            <br/>
+            <label htmlFor="last_name">Last Name:</label>
+            <input type="text" onChange={handleChange} name="last_name" value={values.last_name}/>
+            <br/>
+            <label htmlFor="gender">Gender:</label>
+            <input type="text" onChange={handleChange} name="gender" value={values.gender}/>
+            <br/>
+            <button type="submit">Submit</button>
+        </form>
     );
 }
