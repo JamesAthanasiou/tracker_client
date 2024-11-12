@@ -5,6 +5,7 @@ import './index.css'
 import { routeTree } from './routeTree.gen'
 import CurrentUser from './components/CurrentUser'
 import { UserContextProvider } from './app-context/user-context-provider'
+import { headers, setHeaders } from './api'
 
 // Create a new router instance
 const router = createRouter({ routeTree })
@@ -15,6 +16,8 @@ declare module '@tanstack/react-router' {
     router: typeof router
   }
 }
+
+setHeaders(headers);
 
 // Render the app
 const rootElement = document.getElementById('root')!

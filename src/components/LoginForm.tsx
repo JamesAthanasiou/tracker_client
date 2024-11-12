@@ -4,7 +4,7 @@ import { CurrentUser } from "../types/CurrentUser";
 import { UserLogin } from "../types/UserLogin";
 
 interface LoginFormProps {
-    setUserObject: (user: CurrentUser) => Promise<void>
+    setUserObject: (user?: CurrentUser) => Promise<void>
 }
 
 export default function LoginForm(props: LoginFormProps) {
@@ -22,7 +22,7 @@ export default function LoginForm(props: LoginFormProps) {
         onSubmit(values)
     }
 
-    async function onSubmit(data: UserLogin){
+    async function onSubmit(data: UserLogin) {
         login(data, props.setUserObject);
     }
 

@@ -11,7 +11,7 @@ export const Route = createLazyFileRoute('/login')({
 function Login() {
   const { updateState } = useContext(UserContext);
 
-  const signIn = async (user: CurrentUser): Promise<void> => {
+  const signIn = async (user?: CurrentUser): Promise<void> => {
     await updateState({user: user});
   }
 

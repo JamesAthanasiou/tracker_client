@@ -2,27 +2,17 @@ import { login as apiLogin } from "../api";
 import { CurrentUser } from "../types/CurrentUser";
 import { UserLogin } from "../types/UserLogin";
 
-// TODO implement authentication token.
-// interface IAuthData {
-//     token: string | null,
-//     currentUser: CurrentUser | null
-// }
+export async function login(data: UserLogin, setUserLogin: (user?: CurrentUser) => Promise<void>) {
+    // TOOD add try catch
 
-// // TODO: find something cleaner than managing current user with just a global variable.
-// export const authData: IAuthData = {
-//     token: null,
-//     currentUser: null
-// }
-
-export async function login(data: UserLogin, setUserLogin: (user: CurrentUser) => Promise<void>) {
     const res = await apiLogin(data);
-    console.log(res);
 
-    const currentUser = (res!.user);
-    setUserLogin(currentUser)
+    const currentUser = res?.user;
+    setUserLogin(currentUser);
 
-    // setUserData(res!.token);
-    // console.log(authData.token);
+    // TODO figure out something more secure than setting token in localStorage. This really, really not good.
+    localStorage.setItem('user', JSON.stringify(currentUser));
+    localStorage.setItem('token', JSON.stringify(res?.token));
 }
 
 // export function logout() {

@@ -21,8 +21,10 @@ export async function login(data: UserLogin): Promise<{user: CurrentUser, token:
     return apiCall<UserLogin, {user: CurrentUser, token: string}>('POST', 'login', data);
 }
 
-// TODO figure out what to do with headers that isn't newing up a header each time.
-const headers = new Headers({"Content-Type": "application/json"});
+// TODO remove, this is just an authentication test
+export async function getProtectedRouteTest(): Promise<unknown> {
+    return apiCall('GET', 'protected/test');
+}
 
 // TODO expand when new routes are added.
 type Method = 'GET' | 'POST';
@@ -54,4 +56,16 @@ async function apiCall<T, R>(method: Method, slug: string, data?: T): Promise<R 
 function getErrorMessage(error: unknown): string {
 	if (error instanceof Error) return error.message
 	return String(error)
+}
+
+export const headers = new Headers();
+
+export function setHeaders(headers: Headers) {
+    headers.append("Content-Type", "application/json");
+
+    const stringToken = localStorage.getItem('token');
+
+    if (stringToken != null && stringToken != undefined && stringToken != 'undefined') {
+        headers.append("Authorization", `Bearer ${JSON.parse(stringToken)}`);
+    }
 }
