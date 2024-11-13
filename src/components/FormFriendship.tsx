@@ -13,13 +13,11 @@ export default function FormFriendship() {
     let firstFriendId: number | undefined;
 
     useEffect(() => {
-        async function startFetching(): Promise<void> {
+        (async function startFetching(): Promise<void> {
             const result = (await getAllPersons()) as Person[];
             setPeople(result);
-        }
-
-        startFetching();
-      }, [people]);
+        })();
+      }, []);
 
     const handleChange = (event : React.ChangeEvent<HTMLSelectElement>) => {
         // Remove from 
