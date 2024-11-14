@@ -14,7 +14,7 @@ if (stringUserInStorage != null && stringUserInStorage != undefined && stringUse
 }
 
 export const UserContextProvider: React.FunctionComponent<Props> = (props: Props): JSX.Element => {
-  const [state, setState] = useState({user: {'id':userInStorage!.id, 'username': userInStorage!.username}});
+  const [state, setState] = useState({user: {'id':userInStorage!.id, 'person_id': userInStorage!.person_id, 'username': userInStorage!.username}});
 
   const updateState = (newState: Partial<AppState>) => {
     setState({ ...state, ...newState })
