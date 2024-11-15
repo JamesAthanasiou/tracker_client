@@ -21,6 +21,10 @@ export async function login(data: UserLogin): Promise<{user: CurrentUser, token:
     return apiCall<UserLogin, {user: CurrentUser, token: string}>('POST', 'login', data);
 }
 
+export async function getFriends(): Promise<unknown> {
+    return apiCall('GET', 'friendship/get-friends');
+}
+
 // TODO remove, this is just an authentication test
 export async function getProtectedRouteTest(): Promise<unknown> {
     return apiCall('GET', 'protected/test');
