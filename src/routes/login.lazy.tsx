@@ -8,6 +8,7 @@ export const Route = createLazyFileRoute('/login')({
   component: Login,
 })
 
+// TODO can this just be in the login form? Why pass it in?
 function Login() {
   const { updateState } = useContext(UserContext);
 

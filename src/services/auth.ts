@@ -15,12 +15,11 @@ export async function login(data: UserLogin, setUserLogin: (user?: CurrentUser) 
     localStorage.setItem('token', JSON.stringify(res?.token));
 }
 
-// export function logout() {
-//     // setUserLogin(undefined);
-//     localStorage.clear();
-//     authData.token = null;
-//     headers.delete("Authorization");
-// }
+export function logout() {
+    localStorage.clear();
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+}
 
 // export function setUserData(token: string) {
 //     authData.token = token;

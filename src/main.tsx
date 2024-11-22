@@ -1,14 +1,19 @@
 import { StrictMode } from 'react'
 import ReactDOM from 'react-dom/client'
-import { RouterProvider, createRouter } from '@tanstack/react-router'
+import { NotFoundRoute, RouterProvider, createRouter } from '@tanstack/react-router'
 import './index.css'
 import { routeTree } from './routeTree.gen'
 import CurrentUser from './components/CurrentUser'
 import { UserContextProvider } from './app-context/user-context-provider'
 import { headers, setHeaders } from './api'
+import { Route as rootRoute} from './routes/__root'
 
-// Create a new router instance
-const router = createRouter({ routeTree })
+const notFoundRoute = new NotFoundRoute({
+  getParentRoute: () => rootRoute,
+  component: () => '404 Not Found',
+})
+
+const router = createRouter({ routeTree, notFoundRoute })
 
 // Register the router instance for type safety
 declare module '@tanstack/react-router' {

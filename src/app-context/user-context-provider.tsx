@@ -7,14 +7,20 @@ interface Props {
 }
 
 const stringUserInStorage = localStorage.getItem('user');
-let userInStorage;
+let userInStorage: CurrentUser;
 
 if (stringUserInStorage != null && stringUserInStorage != undefined && stringUserInStorage != 'undefined') {
   userInStorage = JSON.parse(stringUserInStorage) as CurrentUser;
 }
 
 export const UserContextProvider: React.FunctionComponent<Props> = (props: Props): JSX.Element => {
-  const [state, setState] = useState({user: {'id':userInStorage!.id, 'person_id': userInStorage!.person_id, 'username': userInStorage!.username}});
+  let defaultState: Partial<AppState> = {};
+  
+  if (userInStorage?.username) {
+    defaultState = {user: {'id':userInStorage!.id, 'person_id': userInStorage!.person_id, 'username': userInStorage!.username}}
+  }
+
+  const [state, setState] = useState(defaultState);
 
   const updateState = (newState: Partial<AppState>) => {
     setState({ ...state, ...newState })

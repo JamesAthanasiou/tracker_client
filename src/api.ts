@@ -25,11 +25,6 @@ export async function getFriends(): Promise<unknown> {
     return apiCall('GET', 'friendship/get-friends');
 }
 
-// TODO remove, this is just an authentication test
-export async function getProtectedRouteTest(): Promise<unknown> {
-    return apiCall('GET', 'protected/test');
-}
-
 // TODO expand when new routes are added.
 type Method = 'GET' | 'POST';
 
