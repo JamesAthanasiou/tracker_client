@@ -17,7 +17,7 @@ export async function createFriendship(data: Friendship): Promise<unknown> {
 }
 
 // TODO, is typing it this specifically worth the headache?
-export async function login(data: UserLogin): Promise<{user: CurrentUser, token: string} | undefined> {
+export async function login(data: UserLogin): Promise<{user: CurrentUser, token: string}> {
     return apiCall<UserLogin, {user: CurrentUser, token: string}>('POST', 'login', data);
 }
 
@@ -28,7 +28,8 @@ export async function getFriends(): Promise<unknown> {
 // TODO expand when new routes are added.
 type Method = 'GET' | 'POST';
 
-async function apiCall<T, R>(method: Method, slug: string, data?: T): Promise<R | undefined> {
+// TODO something about the error handling and types feels wrong.
+async function apiCall<T, R>(method: Method, slug: string, data?: T): Promise<R> {
     const url = `${import.meta.env.VITE_API_URL}/${slug}`;
 
     try {
@@ -47,6 +48,8 @@ async function apiCall<T, R>(method: Method, slug: string, data?: T): Promise<R 
 
     } catch (error) {
         console.error({message: getErrorMessage(error)});
+        // TODO IMPORTANT update this. This is a bandaid for type safety. 
+        return new Promise(()=>{});
     }
 }
 

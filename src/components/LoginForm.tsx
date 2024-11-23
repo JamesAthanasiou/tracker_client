@@ -1,13 +1,19 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { login } from "../services/auth";
 import { CurrentUser } from "../types/CurrentUser";
 import { UserLogin } from "../types/UserLogin";
+import { UserContext } from "../app-context/user-context";
 
-interface LoginFormProps {
-    setUserObject: (user?: CurrentUser) => Promise<void>
-}
 
-export default function LoginForm(props: LoginFormProps) {
+
+export default function LoginForm() {
+
+    const { updateState } = useContext(UserContext);
+
+    const signIn = async (user: CurrentUser): Promise<void> => {
+        await updateState({user: user});
+    }
+
     const [values,setValues] = useState<UserLogin>({
         username: "",
         password: ""
@@ -23,7 +29,7 @@ export default function LoginForm(props: LoginFormProps) {
     }
 
     async function onSubmit(data: UserLogin) {
-        login(data, props.setUserObject);
+        login(data, signIn);
     }
 
     return (

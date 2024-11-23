@@ -7,13 +7,15 @@ export default function LogoutButton() {
 
     const { updateState } = useContext(UserContext);
 
+    const signOut = async (): Promise<void> => {
+        await updateState({user: undefined});
+    }
+
     const navigate = useNavigate()
 
     function handleClick(){ 
-        logout();
-
-        // TOOD: Move this into the auth file so all things to do with loging out pass through one spot?
-        updateState({user: undefined});
+        logout(signOut);
+        
         navigate({
             to: '/login',
         });
