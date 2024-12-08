@@ -37,4 +37,3 @@ export function isAuthenticated(): boolean {
     // TODO do we need a better way of doing this?
     return localStorage.getItem('user') !== null;
 }
-

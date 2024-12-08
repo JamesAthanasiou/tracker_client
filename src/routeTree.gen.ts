@@ -13,11 +13,11 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as FriendsImport } from './routes/friends'
 
 // Create Virtual Routes
 
 const LoginLazyImport = createFileRoute('/login')()
-const FriendsLazyImport = createFileRoute('/friends')()
 const AboutLazyImport = createFileRoute('/about')()
 const IndexLazyImport = createFileRoute('/')()
 
@@ -28,15 +28,15 @@ const LoginLazyRoute = LoginLazyImport.update({
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/login.lazy').then((d) => d.Route))
 
-const FriendsLazyRoute = FriendsLazyImport.update({
-  path: '/friends',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/friends.lazy').then((d) => d.Route))
-
 const AboutLazyRoute = AboutLazyImport.update({
   path: '/about',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/about.lazy').then((d) => d.Route))
+
+const FriendsRoute = FriendsImport.update({
+  path: '/friends',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
@@ -54,18 +54,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexLazyImport
       parentRoute: typeof rootRoute
     }
+    '/friends': {
+      id: '/friends'
+      path: '/friends'
+      fullPath: '/friends'
+      preLoaderRoute: typeof FriendsImport
+      parentRoute: typeof rootRoute
+    }
     '/about': {
       id: '/about'
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutLazyImport
-      parentRoute: typeof rootRoute
-    }
-    '/friends': {
-      id: '/friends'
-      path: '/friends'
-      fullPath: '/friends'
-      preLoaderRoute: typeof FriendsLazyImport
       parentRoute: typeof rootRoute
     }
     '/login': {
@@ -82,46 +82,46 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
+  '/friends': typeof FriendsRoute
   '/about': typeof AboutLazyRoute
-  '/friends': typeof FriendsLazyRoute
   '/login': typeof LoginLazyRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
+  '/friends': typeof FriendsRoute
   '/about': typeof AboutLazyRoute
-  '/friends': typeof FriendsLazyRoute
   '/login': typeof LoginLazyRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexLazyRoute
+  '/friends': typeof FriendsRoute
   '/about': typeof AboutLazyRoute
-  '/friends': typeof FriendsLazyRoute
   '/login': typeof LoginLazyRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/friends' | '/login'
+  fullPaths: '/' | '/friends' | '/about' | '/login'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/friends' | '/login'
-  id: '__root__' | '/' | '/about' | '/friends' | '/login'
+  to: '/' | '/friends' | '/about' | '/login'
+  id: '__root__' | '/' | '/friends' | '/about' | '/login'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
+  FriendsRoute: typeof FriendsRoute
   AboutLazyRoute: typeof AboutLazyRoute
-  FriendsLazyRoute: typeof FriendsLazyRoute
   LoginLazyRoute: typeof LoginLazyRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
+  FriendsRoute: FriendsRoute,
   AboutLazyRoute: AboutLazyRoute,
-  FriendsLazyRoute: FriendsLazyRoute,
   LoginLazyRoute: LoginLazyRoute,
 }
 
@@ -138,19 +138,19 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/about",
         "/friends",
+        "/about",
         "/login"
       ]
     },
     "/": {
       "filePath": "index.lazy.tsx"
     },
+    "/friends": {
+      "filePath": "friends.tsx"
+    },
     "/about": {
       "filePath": "about.lazy.tsx"
-    },
-    "/friends": {
-      "filePath": "friends.lazy.tsx"
     },
     "/login": {
       "filePath": "login.lazy.tsx"

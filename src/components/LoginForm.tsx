@@ -4,8 +4,6 @@ import { CurrentUser } from "../types/CurrentUser";
 import { UserLogin } from "../types/UserLogin";
 import { UserContext } from "../app-context/user-context";
 
-
-
 export default function LoginForm() {
 
     const { updateState } = useContext(UserContext);
@@ -29,7 +27,16 @@ export default function LoginForm() {
     }
 
     async function onSubmit(data: UserLogin) {
-        login(data, signIn);
+        try {
+            login(data, signIn);
+            // JTODO here
+            // TODO: figure out how to use redirected route and navigtate back on login?
+            // https://tanstack.com/router/v1/docs/framework/react/guide/authenticated-routes
+            // https://tanstack.com/router/v1/docs/framework/react/guide/search-params
+            // router.history.push(search.redirect)
+        } catch (e) {
+            throw e as Error;
+        }
     }
 
     return (
