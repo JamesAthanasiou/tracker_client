@@ -13,7 +13,7 @@ const notFoundRoute = new NotFoundRoute({
   component: () => '404 Not Found',
 })
 
-const router = createRouter({ routeTree, notFoundRoute })
+export const router = createRouter({ routeTree, notFoundRoute })
 
 // Register the router instance for type safety
 declare module '@tanstack/react-router' {

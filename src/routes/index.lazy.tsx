@@ -1,5 +1,4 @@
 import { createLazyFileRoute } from '@tanstack/react-router'
-import Game from '../components/game/Game'
 
 export const Route = createLazyFileRoute('/')({
   component: Index,
@@ -10,12 +9,9 @@ function Index() {
     <div>
       <div className="p-2">
         <h3>Welcome Home!</h3>
+        <p>This is an empty page. Not sure what should go here.</p>
       </div>
-      <div className='container'>
-        <div className='row'>
-          <Game />
-        </div>
-      </div>
+
     </div>
   )
 }

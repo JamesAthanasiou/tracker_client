@@ -3,6 +3,8 @@ import { login } from "../services/auth";
 import { CurrentUser } from "../types/CurrentUser";
 import { UserLogin } from "../types/UserLogin";
 import { UserContext } from "../app-context/user-context";
+import { useSearch } from "@tanstack/react-router";
+import { router } from "../main";
 
 export default function LoginForm() {
 
@@ -17,6 +19,8 @@ export default function LoginForm() {
         password: ""
     });
 
+    const search = useSearch({ from: "/login"}) as {redirect:string};
+
     const handleChange = (event : React.ChangeEvent<HTMLInputElement>) => {
         setValues({...values,[event.target.name] : event.target.value});
     }
@@ -26,14 +30,18 @@ export default function LoginForm() {
         onSubmit(values)
     }
 
+    function redirectAfterLogin() {
+        if (search?.redirect) {
+            router.history.push(search.redirect);
+        } else {
+            router.history.push("/");
+        }
+    }
+
     async function onSubmit(data: UserLogin) {
         try {
-            login(data, signIn);
-            // JTODO here
-            // TODO: figure out how to use redirected route and navigtate back on login?
-            // https://tanstack.com/router/v1/docs/framework/react/guide/authenticated-routes
-            // https://tanstack.com/router/v1/docs/framework/react/guide/search-params
-            // router.history.push(search.redirect)
+            await login(data, signIn);
+            redirectAfterLogin();
         } catch (e) {
             throw e as Error;
         }
