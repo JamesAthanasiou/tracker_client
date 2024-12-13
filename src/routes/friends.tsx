@@ -8,6 +8,7 @@ import { isAuthenticated } from '../services/auth'
 export const Route = createFileRoute('/friends')({
   component: Friends,
   // TODO: move to other file.
+  // TODO apply to all other protected routes. Create main protected route?
   beforeLoad: async ({ location }) => {
     if (!isAuthenticated()) {
       throw redirect({
