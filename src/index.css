@@ -37,7 +37,19 @@ body {
 }
 
 .main-nav {
+  padding: 15px;
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: solid 1px red;
+}
+
+.links {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 h1 {
@@ -97,4 +109,15 @@ button:focus-visible {
   width: 50px;
   background-color: #535bf2;
   color: #ffffff;
+}
+
+.outlet-container {
+  max-width: 800px;
+  padding: 30px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.section-container {
+  margin-bottom: 24px;
 }

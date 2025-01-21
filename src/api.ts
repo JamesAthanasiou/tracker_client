@@ -21,9 +21,10 @@ export async function login(data: UserLogin): Promise<{user: CurrentUser, token:
     return apiCall<UserLogin, {user: CurrentUser, token: string}>('POST', 'login', data);
 }
 
-export async function getFriends(): Promise<unknown> {
-    return apiCall('GET', 'friendship/get-friends');
-}
+export async function getFriends(person_id: number): Promise<unknown> {
+    console.log(person_id)
+    return apiCall('GET', `friendship/get-friends/?person_id=${person_id}`);
+} 
 
 // TODO expand when new routes are added.
 type Method = 'GET' | 'POST';

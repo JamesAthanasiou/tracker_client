@@ -10,14 +10,15 @@ export default function Navbar() {
 
     return (
         <>
-            <div className="p-2 flex gap-2 main-nav">
+            <div className="main-nav">
                 { isAuthenticated() && !!user ? (
                     <>
+                    <div  className="links">
                         <Link to="/" className="[&.active]:font-bold">
                             Home
                         </Link>{' '}
-                        <Link to="/about" className="[&.active]:font-bold">
-                            About
+                        <Link to="/person" className="[&.active]:font-bold">
+                            People
                         </Link>{' '}
                         <Link to="/gamer" className="[&.active]:font-bold">
                             Gamer
@@ -25,7 +26,9 @@ export default function Navbar() {
                         <Link to="/friends" className="[&.active]:font-bold">
                             Friends
                         </Link>
-                        {' '}
+                    </div>
+                        
+                        {'   '}
                         <LogoutButton />
                     </>
                 ) : (
@@ -35,7 +38,6 @@ export default function Navbar() {
                     // TODO signup
                 )}
             </div>
-            <hr />
         </>
                 
     )

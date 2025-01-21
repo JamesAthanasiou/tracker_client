@@ -8,7 +8,7 @@ interface Person {
     gender: 'man' | 'woman' | 'other' | '';
 }
 
-export default function AForm() {
+export default function PersonForm() {
     const [values,setValues] = useState<Person>({
         first_name: "",
         last_name: "",

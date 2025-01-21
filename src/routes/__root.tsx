@@ -5,7 +5,9 @@ export const Route = createRootRoute({
   component: () => (
     <>
       <Navbar />
-      <Outlet />
+      <div className="outlet-container">
+        <Outlet />
+      </div>
     </>
   ),
 })

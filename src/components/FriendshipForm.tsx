@@ -4,6 +4,7 @@ import { createFriendship, getAllPersons } from "../api";
 import { Friendship } from "../types/Friendship";
 import { UserContext } from "../app-context/user-context";
 
+// JTODO change this to be a form between two general people. Friends can be friends.
 export default function FormFriendship() {
     const {user} = useContext(UserContext);
     const [people, setPeople] = useState<Person[]>([]);
