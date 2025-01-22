@@ -1,8 +1,8 @@
-import { createLazyFileRoute } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router'
 import PersonForm from '../components/PersonForm'
 import AllPersons from '../components/AllPersons'
 
-export const Route = createLazyFileRoute('/person')({
+export const Route = createFileRoute('/person/')({
   component: PersonManagement,
 })
 

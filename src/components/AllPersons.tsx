@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Person from "../types/Person";
 import { getAllPersons } from "../api";
+import PersonLine from "./PersonLine";
 
 
 export default function AllPersons() {
@@ -17,7 +18,7 @@ export default function AllPersons() {
     return (
         <div>
             {persons.map((e, key) => {
-                return <li key={key} value={e.id}>{e.first_name}</li>;
+                return <PersonLine key={key}  person={e} />
             })}
         </div>
     )

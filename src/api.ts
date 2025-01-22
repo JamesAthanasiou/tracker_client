@@ -8,6 +8,10 @@ export async function getAllPersons(): Promise<unknown> {
     return apiCall('GET', 'person/show-all');
 }
 
+export async function getPerson(person_id: string): Promise<unknown> {
+    return apiCall('GET', `person/${person_id}`);
+}
+
 export async function createPerson(data: Person): Promise<unknown> {
     return apiCall('POST', 'person/create', data);
 }

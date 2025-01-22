@@ -14,20 +14,16 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as FriendsImport } from './routes/friends'
+import { Route as PersonIndexImport } from './routes/person.index'
+import { Route as PersonIdImport } from './routes/person.$id'
 
 // Create Virtual Routes
 
-const PersonLazyImport = createFileRoute('/person')()
 const LoginLazyImport = createFileRoute('/login')()
 const GamerLazyImport = createFileRoute('/gamer')()
 const IndexLazyImport = createFileRoute('/')()
 
 // Create/Update Routes
-
-const PersonLazyRoute = PersonLazyImport.update({
-  path: '/person',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/person.lazy').then((d) => d.Route))
 
 const LoginLazyRoute = LoginLazyImport.update({
   path: '/login',
@@ -48,6 +44,16 @@ const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
+
+const PersonIndexRoute = PersonIndexImport.update({
+  path: '/person/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const PersonIdRoute = PersonIdImport.update({
+  path: '/person/$id',
+  getParentRoute: () => rootRoute,
+} as any)
 
 // Populate the FileRoutesByPath interface
 
@@ -81,11 +87,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginLazyImport
       parentRoute: typeof rootRoute
     }
-    '/person': {
-      id: '/person'
+    '/person/$id': {
+      id: '/person/$id'
+      path: '/person/$id'
+      fullPath: '/person/$id'
+      preLoaderRoute: typeof PersonIdImport
+      parentRoute: typeof rootRoute
+    }
+    '/person/': {
+      id: '/person/'
       path: '/person'
       fullPath: '/person'
-      preLoaderRoute: typeof PersonLazyImport
+      preLoaderRoute: typeof PersonIndexImport
       parentRoute: typeof rootRoute
     }
   }
@@ -98,7 +111,8 @@ export interface FileRoutesByFullPath {
   '/friends': typeof FriendsRoute
   '/gamer': typeof GamerLazyRoute
   '/login': typeof LoginLazyRoute
-  '/person': typeof PersonLazyRoute
+  '/person/$id': typeof PersonIdRoute
+  '/person': typeof PersonIndexRoute
 }
 
 export interface FileRoutesByTo {
@@ -106,7 +120,8 @@ export interface FileRoutesByTo {
   '/friends': typeof FriendsRoute
   '/gamer': typeof GamerLazyRoute
   '/login': typeof LoginLazyRoute
-  '/person': typeof PersonLazyRoute
+  '/person/$id': typeof PersonIdRoute
+  '/person': typeof PersonIndexRoute
 }
 
 export interface FileRoutesById {
@@ -115,15 +130,23 @@ export interface FileRoutesById {
   '/friends': typeof FriendsRoute
   '/gamer': typeof GamerLazyRoute
   '/login': typeof LoginLazyRoute
-  '/person': typeof PersonLazyRoute
+  '/person/$id': typeof PersonIdRoute
+  '/person/': typeof PersonIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/friends' | '/gamer' | '/login' | '/person'
+  fullPaths: '/' | '/friends' | '/gamer' | '/login' | '/person/$id' | '/person'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/friends' | '/gamer' | '/login' | '/person'
-  id: '__root__' | '/' | '/friends' | '/gamer' | '/login' | '/person'
+  to: '/' | '/friends' | '/gamer' | '/login' | '/person/$id' | '/person'
+  id:
+    | '__root__'
+    | '/'
+    | '/friends'
+    | '/gamer'
+    | '/login'
+    | '/person/$id'
+    | '/person/'
   fileRoutesById: FileRoutesById
 }
 
@@ -132,7 +155,8 @@ export interface RootRouteChildren {
   FriendsRoute: typeof FriendsRoute
   GamerLazyRoute: typeof GamerLazyRoute
   LoginLazyRoute: typeof LoginLazyRoute
-  PersonLazyRoute: typeof PersonLazyRoute
+  PersonIdRoute: typeof PersonIdRoute
+  PersonIndexRoute: typeof PersonIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -140,7 +164,8 @@ const rootRouteChildren: RootRouteChildren = {
   FriendsRoute: FriendsRoute,
   GamerLazyRoute: GamerLazyRoute,
   LoginLazyRoute: LoginLazyRoute,
-  PersonLazyRoute: PersonLazyRoute,
+  PersonIdRoute: PersonIdRoute,
+  PersonIndexRoute: PersonIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -159,7 +184,8 @@ export const routeTree = rootRoute
         "/friends",
         "/gamer",
         "/login",
-        "/person"
+        "/person/$id",
+        "/person/"
       ]
     },
     "/": {
@@ -174,8 +200,11 @@ export const routeTree = rootRoute
     "/login": {
       "filePath": "login.lazy.tsx"
     },
-    "/person": {
-      "filePath": "person.lazy.tsx"
+    "/person/$id": {
+      "filePath": "person.$id.tsx"
+    },
+    "/person/": {
+      "filePath": "person.index.tsx"
     }
   }
 }
