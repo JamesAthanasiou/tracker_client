@@ -92,6 +92,8 @@ button:focus-visible {
 .container {
   display: flex;
   max-width: 800px;
+  width: 100%;
+  flex-wrap: wrap;
 }
 
 .row {
@@ -116,6 +118,7 @@ button:focus-visible {
   padding: 30px 0;
   display: flex;
   justify-content: center;
+  margin: 0 auto;
 }
 
 .section-container {
@@ -126,4 +129,12 @@ button:focus-visible {
   display: flex;
   justify-content: space-between;
   width: 100%;
+}
+
+.section-header {
+  width: 100%;
+}
+
+.row {
+  width: 100%
 }

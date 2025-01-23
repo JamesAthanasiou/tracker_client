@@ -5,19 +5,20 @@ type PersonProps =  {
     person: Person,
 }
 
-export default function PersonLine(props: PersonProps) {
+export default function PersonLine({person}: PersonProps) {
 
     const navigate = useNavigate()
 
-    function handleClick(){  
+    async function handleClick(){  
+        
         navigate({
-            to: `/person/${props.person.id}`,
+            to: `/person/${person.id}`,
         });
     }
 
     return (
         <div className="person-line">
-            <div>{props.person.first_name} </div>
+            <div>{person.first_name} </div>
             <button onClick={handleClick}>view</button>
         </div>
     );

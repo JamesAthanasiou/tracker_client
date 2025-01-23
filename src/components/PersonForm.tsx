@@ -19,6 +19,7 @@ export default function PersonForm() {
         setValues({...values,[event.target.name] : event.target.value});
     }
 
+    // TODO should update list of friends. Add context.
     const handleSubmit = (event : React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         onSubmit(values)

@@ -16,6 +16,10 @@ export async function createPerson(data: Person): Promise<unknown> {
     return apiCall('POST', 'person/create', data);
 }
 
+export async function deletePerson(data: Person): Promise<unknown> {
+    return apiCall('POST', 'person/delete', data);
+}
+
 export async function createFriendship(data: Friendship): Promise<unknown> {
     return apiCall('POST', 'friendship/create', data);
 }
@@ -26,9 +30,8 @@ export async function login(data: UserLogin): Promise<{user: CurrentUser, token:
 }
 
 export async function getFriends(person_id: number): Promise<unknown> {
-    console.log(person_id)
     return apiCall('GET', `friendship/get-friends/?person_id=${person_id}`);
-} 
+}
 
 // TODO expand when new routes are added.
 type Method = 'GET' | 'POST';

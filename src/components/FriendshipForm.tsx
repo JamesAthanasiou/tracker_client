@@ -1,12 +1,14 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Person from "../types/Person";
 import { createFriendship, getAllPersons } from "../api";
 import { Friendship } from "../types/Friendship";
-import { UserContext } from "../app-context/user-context";
+
+type FriendFormProps = {
+    person: Person
+}
 
 // JTODO change this to be a form between two general people. Friends can be friends.
-export default function FormFriendship() {
-    const {user} = useContext(UserContext);
+export default function FormFriendship({person}: FriendFormProps) {
     const [people, setPeople] = useState<Person[]>([]);
     const [friends, setFriends] = useState<Friendship>({
         person_1_id: null,
@@ -18,10 +20,7 @@ export default function FormFriendship() {
         (async function startFetching(): Promise<void> {
             const result = (await getAllPersons()) as Person[];
             setPeople(result);
-
-            if (user?.id) {
-                setFriends({...friends, person_1_id: user.person_id});
-            }
+            setFriends({...friends, person_1_id: person.id as number});
             
         })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -58,6 +57,8 @@ export default function FormFriendship() {
 
     async function onSubmit(data: Friendship) {
         await createFriendship(data)
+
+        // TODO. Use a context to the friends list on the friend single component after creating friendship.
     }
 
     return (

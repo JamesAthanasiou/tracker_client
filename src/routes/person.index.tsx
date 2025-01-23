@@ -6,6 +6,22 @@ export const Route = createFileRoute('/person/')({
   component: PersonManagement,
 })
 
+// // TOOD add protected route
+// export const Route = createFileRoute('/person/')({
+//   component: Friends,
+//   // TODO apply to all other protected routes. Create main protected route?
+//   beforeLoad: async ({ location }) => {
+//     if (!isAuthenticated()) {
+//       throw redirect({
+//         to: '/login',
+//         search: {
+//           redirect: location.href,
+//         },
+//       })
+//     }
+//   },
+// })
+
 function PersonManagement() {
   return (
     <div>
