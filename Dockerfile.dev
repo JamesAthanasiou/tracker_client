@@ -1,0 +1,12 @@
+FROM node:18-alpine
+# Define to be accessable at build time
+ARG VITE_API_URL
+WORKDIR /usr/src/app
+COPY ["package.json", "yarn.lock", "./"]
+RUN yarn install --dev --silent && mv node_modules ../ && npm install -g typescript vite
+COPY . .
+RUN chown -R node /usr/src/app
+# TODO see if we can change vite's config so it writes in /usr/src/ instead.
+RUN mkdir -p /usr/src/app/node_modules/.vite/
+RUN chown -R node /usr/src/app/node_modules/.vite/
+USER node
