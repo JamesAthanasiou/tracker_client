@@ -2,9 +2,9 @@ name: Deploy front end bundle to S3 bucket
 
 on:
   push:
-    branches: ['main']
+    branches: ['master']
   pull_request:
-    branches: ['main']
+    branches: ['master']
 jobs:
   build:
     runs-on: ubuntu-latest
