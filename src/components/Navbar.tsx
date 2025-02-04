@@ -20,12 +20,12 @@ export default function Navbar() {
                         <Link to="/person" className="[&.active]:font-bold">
                             People
                         </Link>{' '}
-                        <Link to="/groups" className="[&.active]:font-bold">
+                        {/* <Link to="/groups" className="[&.active]:font-bold">
                             Groups
                         </Link>{' '}
                         <Link to="/schedule" className="[&.active]:font-bold">
                             Schedule
-                        </Link>{' '}
+                        </Link>{' '} */}
                         <Link to="/gamer" className="[&.active]:font-bold">
                             Gamer
                         </Link>{' '}
