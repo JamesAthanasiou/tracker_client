@@ -1,6 +1,7 @@
 // TODO rename file, clean up.
 import { CurrentUser } from "./types/CurrentUser";
 import { Friendship } from "./types/Friendship";
+import { LoginFormData } from "./types/LoginFormData";
 import Person from "./types/Person";
 import { UserLogin } from "./types/UserLogin";
 
@@ -25,8 +26,12 @@ export async function createFriendship(data: Friendship): Promise<unknown> {
 }
 
 // TODO, is typing it this specifically worth the headache?
-export async function login(data: UserLogin): Promise<{user: CurrentUser, token: string}> {
+export async function login(data: LoginFormData): Promise<{user: CurrentUser, token: string}> {
     return apiCall<UserLogin, {user: CurrentUser, token: string}>('POST', 'login', data);
+}
+
+export async function signup(data: LoginFormData): Promise<{user: CurrentUser, token: string}> {
+    return apiCall<UserLogin, {user: CurrentUser, token: string, person: Person}>('POST', 'user/create', data);
 }
 
 export async function getFriends(person_id: number): Promise<unknown> {

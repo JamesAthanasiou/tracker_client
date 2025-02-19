@@ -35,10 +35,14 @@ export default function Navbar() {
                         <LogoutButton />
                     </>
                 ) : (
-                    <Link to="/login" className="[&.active]:font-bold">
-                        Login
-                    </Link>
-                    // TODO signup
+                    <>
+                        <Link to="/login" className="[&.active]:font-bold">
+                            Login
+                        </Link>
+                        <Link to="/signup" className="[&.active]:font-bold">
+                            Signup
+                        </Link>
+                    </>
                 )}
             </div>
         </>

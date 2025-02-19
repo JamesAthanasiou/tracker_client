@@ -1,5 +1,6 @@
-import { login as apiLogin } from "../api";
+import { login as apiLogin, signup as apiSignup } from "../api";
 import { CurrentUser } from "../types/CurrentUser";
+import { LoginFormData } from "../types/LoginFormData";
 import { UserLogin } from "../types/UserLogin";
 
 interface LoginData {
@@ -7,7 +8,7 @@ interface LoginData {
     token: string;
 }
 
-export async function login(data: UserLogin, signIn: (user: CurrentUser) => Promise<void>) {
+export async function login(data: UserLogin, setUser: (user: CurrentUser) => Promise<void>) {
     let res: LoginData;
 
     try {
@@ -20,9 +21,26 @@ export async function login(data: UserLogin, signIn: (user: CurrentUser) => Prom
     // Want to move setting context into one spot. Solution is likely state management.
     // Potentially for now this is fine though. If the login/logout functions force a function to update the UserContext we should be ok.
     const currentUser = res.user;
-    signIn(currentUser);
+    setUser(currentUser);
 
     // TODO figure out something more secure than setting token in localStorage. This really, really not good.
+    localStorage.setItem('user', JSON.stringify(currentUser));
+    localStorage.setItem('token', JSON.stringify(res?.token));
+}
+
+export async function signup(data: LoginFormData, setUser: (user: CurrentUser) => Promise<void>) {
+    let res: LoginData;
+
+    try {
+        res = await apiSignup(data);
+    } catch {
+        throw new Error('Unable to signup');
+    }
+
+    const currentUser = res.user;
+    setUser(currentUser);
+
+    // TODO figure out something more secure than setting token in localStorage.
     localStorage.setItem('user', JSON.stringify(currentUser));
     localStorage.setItem('token', JSON.stringify(res?.token));
 }

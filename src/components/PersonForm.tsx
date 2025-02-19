@@ -1,12 +1,6 @@
 import { useState } from "react";
 import { createPerson } from "../api";
-
-interface Person {
-    id?: number;
-    first_name: string;
-    last_name: string;
-    gender: 'man' | 'woman' | 'other' | '';
-}
+import Person from "../types/Person";
 
 export default function PersonForm() {
     const [values,setValues] = useState<Person>({
