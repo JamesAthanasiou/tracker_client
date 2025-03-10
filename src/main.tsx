@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client'
 import { NotFoundRoute, RouterProvider, createRouter } from '@tanstack/react-router'
 import './index.css'
 import { routeTree } from './routeTree.gen'
-import CurrentUser from './components/CurrentUser'
 import { UserContextProvider } from './app-context/user-context-provider'
 import { headers, setHeaders } from './api'
 import { Route as rootRoute} from './routes/__root'
@@ -31,7 +30,6 @@ if (!rootElement.innerHTML) {
   root.render(
     <StrictMode>
       <UserContextProvider>
-        <CurrentUser />
         <RouterProvider router={router} />
       </UserContextProvider>
     </StrictMode>,
