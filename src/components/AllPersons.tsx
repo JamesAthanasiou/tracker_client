@@ -1,28 +1,12 @@
-import { useEffect, useState } from "react";
 import Person from "../types/Person";
-import { getAllPersons } from "../api";
 import PersonLine from "./PersonLine";
 
+type AllPersonsProps = {
+    persons: Person[]
+}
 
-export default function AllPersons() {
-    const [persons, setPersons] = useState<Person[]>([]);
+export default function AllPersons({persons}: AllPersonsProps) {
 
-    useEffect(() => {
-        let active = true;
-
-        const fetchAllPersons = async () => {
-            const data = await (getAllPersons()) as Person[];
-            if (active) {
-                setPersons(data);
-            }
-        }
-
-        fetchAllPersons();
-        return () => {
-            active = false;
-        };
-    },[]);
-    
     return (
         <div>
             {persons.map((e, key) => {

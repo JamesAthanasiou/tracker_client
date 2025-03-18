@@ -2,7 +2,11 @@ import { useState } from "react";
 import { createPerson } from "../api";
 import Person from "../types/Person";
 
-export default function PersonForm() {
+type PersonFormProps = {
+    updateParent: () => Promise<any>
+}
+
+export default function PersonForm({updateParent}: PersonFormProps) {
     const [values,setValues] = useState<Person>({
         first_name: "",
         last_name: "",
@@ -13,14 +17,14 @@ export default function PersonForm() {
         setValues({...values,[event.target.name] : event.target.value});
     }
 
-    // TODO should update list of friends. Add context.
-    const handleSubmit = (event : React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event : React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        onSubmit(values)
+        await onSubmit(values);
+        await updateParent();
     }
 
-    async function onSubmit(data: Person){
-        createPerson(data)
+    async function onSubmit(data: Person): Promise<void>{
+        await createPerson(data);
     }
 
     return (
