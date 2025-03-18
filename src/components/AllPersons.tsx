@@ -8,11 +8,19 @@ export default function AllPersons() {
     const [persons, setPersons] = useState<Person[]>([]);
 
     useEffect(() => {
-        (async function getF(): Promise<void> {
-            const result = (await getAllPersons()) as Person[];
-            setPersons(result);
-        })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        let active = true;
+
+        const fetchAllPersons = async () => {
+            const data = await (getAllPersons()) as Person[];
+            if (active) {
+                setPersons(data);
+            }
+        }
+
+        fetchAllPersons();
+        return () => {
+            active = false;
+        };
     },[]);
     
     return (

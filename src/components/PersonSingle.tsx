@@ -23,7 +23,7 @@ export default function PersonSingle({person}: PersonSingleProps){
     }
 
 
-    
+    // TODO, when a new friend is added it should rerender current friends.
     return (
         <div className="container">
             <div className="section-header">Basic Info</div>

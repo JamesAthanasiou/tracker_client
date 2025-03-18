@@ -10,11 +10,19 @@ export default function CurrentFriends({person_id}: CurrentFriendsProps) {
     const [friends, setFriends] = useState<Person[]>([]);
 
     useEffect(() => {
-        (async function getF(): Promise<void> {
-            const result = (await getFriends(person_id)) as Person[];
-            setFriends(result);
-        })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        let active = true;
+
+        const fetchFriends = async () => {
+            const data = await (getFriends(person_id)) as Person[];
+            if (active) {
+                setFriends(data);
+            }
+        }
+
+        fetchFriends();
+        return () => {
+            active = false;
+        };
     },[]);
     
     return (

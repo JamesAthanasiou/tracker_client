@@ -17,13 +17,20 @@ export default function FormFriendship({person}: FriendFormProps) {
     const [formError, setFormError] = useState<string>('');
 
     useEffect(() => {
-        (async function startFetching(): Promise<void> {
-            const result = (await getAllPersons()) as Person[];
-            setPeople(result);
-            setFriends({...friends, person_1_id: person.id as number});
-            
-        })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        let active = true;
+
+        const fetchAllPersonsAndFriends = async () => {
+            const data = await (getAllPersons()) as Person[];
+            if (active) {
+                setPeople(data)
+                setFriends({...friends, person_1_id: person.id as number});
+            }
+        }
+
+        fetchAllPersonsAndFriends();
+        return () => {
+            active = false;
+        };
     },[]);
 
     const handleChange = (event : React.ChangeEvent<HTMLSelectElement>) => {
