@@ -4,6 +4,7 @@ import { UserContext } from "../app-context/user-context";
 import { useSearch } from "@tanstack/react-router";
 import { router } from "../main";
 import { LoginFormData } from "../types/LoginFormData";
+import { Box, Button, FormControl, TextField } from "@mui/material";
 
 type LoginFormProps = {
     loginFunction: (data: LoginFormData, signIn: (user: CurrentUser) => Promise<void>) => Promise<void>,
@@ -57,29 +58,58 @@ export default function LoginForm({loginFunction, path}: LoginFormProps) {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label htmlFor="username">Username:</label>
-            <input type="text" onChange={handleChange} name="username" value={values.username}/>
-            <br/>
-            <label htmlFor="password">Password:</label>
-            <input type="password" onChange={handleChange} name="password" value={values.password}/>
-            <br/>
+        <Box component="form" onSubmit={handleSubmit}  sx={{ display: 'flex', flexDirection:'column' }}>
+            <FormControl sx={{ mb: 1}}>
+                <TextField
+                    label="Username"
+                    type="username"
+                    name="username"
+                    size="small"
+                    onChange={handleChange}
+                />
+            </FormControl>
+            <FormControl sx={{ mb: 1}}>
+                <TextField
+                    label="Password"
+                    type="password"
+                    name="password"
+                    size="small"
+                    onChange={handleChange}
+                />
+            </FormControl>
 
             { isSignup ? 
                 <>
-                    <label htmlFor="first_name">First Name:</label>
-                    <input type="text" onChange={handleChange} name="first_name" value={values.first_name}/>
-                    <br/>
-                    <label htmlFor="last_name">Last Name:</label>
-                    <input type="text" onChange={handleChange} name="last_name" value={values.last_name}/>
-                    <br/>
-                    <label htmlFor="gender">Gender:</label>
-                    <input type="text" onChange={handleChange} name="gender" value={values.gender}/>
-                    <br/>
-                    </>
+                    <FormControl sx={{ mb: 1}}>
+                        <TextField
+                            label="First Name"
+                            name="first_name"
+                            size="small"
+                            onChange={handleChange}
+                        />
+                    </FormControl>
+                    <FormControl sx={{ mb: 1}}>
+                        <TextField
+                            label="Last Name"
+                            name="last_name"
+                            size="small"
+                            onChange={handleChange}
+                        />
+                    </FormControl>
+                    <FormControl sx={{ mb: 1}}>
+                        <TextField
+                            label="Gender"
+                            type="gender"
+                            size="small"
+                            onChange={handleChange}
+                        />
+                    </FormControl>
+                </>
             : null }
 
-            <button type="submit">Submit</button>
-        </form>
+            <Button type="submit" variant="contained" >Submit</Button>
+
+        
+        </Box>
     );
 }
