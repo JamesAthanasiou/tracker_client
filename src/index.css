@@ -125,12 +125,6 @@ button:focus-visible {
   margin-bottom: 24px;
 }
 
-.person-line {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
-
 .section-header {
   width: 100%;
 }

@@ -4,6 +4,7 @@ import AllPersons from '../components/AllPersons'
 import { useEffect, useState } from 'react';
 import Person from '../types/Person';
 import { getAllPersons } from '../api';
+import { Box, Grid2 as Grid, Typography } from '@mui/material';
 
 export const Route = createFileRoute('/person/')({
   component: PersonManagement,
@@ -34,19 +35,25 @@ function PersonManagement() {
 	}
 
 	return (
-		<div>
-			<div className="section-container">
-				<div>People</div>
-				<AllPersons persons={persons}/>
-			</div>
-			<div className="section-container">
-				<div>Add a person</div>
-				<PersonForm updateParent={personsListUpdated}/>
-			</div>
-			<div className="section-container">
-				<div className="p-2">Remove a person</div>
-				{/* TODO dropdown */}
-			</div>
-		</div>
-	)
+		<Box sx={{ flexGrow: 1 }}>
+			<Grid container spacing={2}>
+				<Grid size={8}>
+					<div>
+						<Typography variant="h4" component="h1">
+							People
+						</Typography>
+						<AllPersons persons={persons}/>
+					</div>
+				</Grid>
+				<Grid size={4}>
+					<div>
+						<Typography variant="h5" component="h2">
+							Add Person
+						</Typography>
+						<PersonForm updateParent={personsListUpdated}/>
+					</div>
+				</Grid>
+			</Grid>
+	  	</Box>
+	);
 }

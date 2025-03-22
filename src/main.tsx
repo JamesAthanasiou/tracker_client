@@ -6,6 +6,7 @@ import { routeTree } from './routeTree.gen'
 import { UserContextProvider } from './app-context/user-context-provider'
 import { headers, setHeaders } from './api'
 import { Route as rootRoute} from './routes/__root'
+import { CssBaseline } from '@mui/material'
 
 const notFoundRoute = new NotFoundRoute({
   getParentRoute: () => rootRoute,
@@ -29,6 +30,7 @@ if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement)
   root.render(
     <StrictMode>
+      <CssBaseline />
       <UserContextProvider>
         <RouterProvider router={router} />
       </UserContextProvider>
