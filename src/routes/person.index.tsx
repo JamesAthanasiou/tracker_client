@@ -1,13 +1,24 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, redirect } from '@tanstack/react-router'
 import PersonForm from '../components/PersonForm'
 import AllPersons from '../components/AllPersons'
 import { useEffect, useState } from 'react';
 import Person from '../types/Person';
 import { getAllPersons } from '../api';
 import { Box, Grid2 as Grid, Typography } from '@mui/material';
+import { isAuthenticated } from '../services/auth';
 
 export const Route = createFileRoute('/person/')({
   component: PersonManagement,
+  beforeLoad: async ({ location }) => {
+	if (!isAuthenticated()) {
+	  throw redirect({
+		to: '/login',
+		search: {
+		  redirect: location.href,
+		},
+	  })
+	}
+  }
 })
 
 function PersonManagement() {
