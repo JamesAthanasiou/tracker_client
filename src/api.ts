@@ -49,7 +49,7 @@ async function apiCall<T, R>(method: Method, slug: string, data?: T): Promise<R>
         const response = await fetch(url, {
             method: method,
             body: JSON.stringify(data),
-            headers: headers,
+            headers: getHeaders(),
         });
 
         if (!response.ok) {
@@ -73,9 +73,9 @@ function getErrorMessage(error: unknown): string {
 	return String(error)
 }
 
-export const headers = new Headers();
-
-export function setHeaders(headers: Headers) {
+// TODO: do we want a global header object or is recreating on every API call ok?
+export function getHeaders(): Headers {
+    const headers = new Headers();
     headers.append("Content-Type", "application/json");
 
     const stringToken = localStorage.getItem('token');
@@ -83,4 +83,6 @@ export function setHeaders(headers: Headers) {
     if (stringToken != null && stringToken != undefined && stringToken != 'undefined') {
         headers.append("Authorization", `Bearer ${JSON.parse(stringToken)}`);
     }
+
+    return headers;
 }

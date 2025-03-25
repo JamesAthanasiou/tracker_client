@@ -4,7 +4,6 @@ import { NotFoundRoute, RouterProvider, createRouter } from '@tanstack/react-rou
 import './index.css'
 import { routeTree } from './routeTree.gen'
 import { UserContextProvider } from './app-context/user-context-provider'
-import { headers, setHeaders } from './api'
 import { Route as rootRoute} from './routes/__root'
 import { CssBaseline } from '@mui/material'
 
@@ -21,8 +20,6 @@ declare module '@tanstack/react-router' {
     router: typeof router
   }
 }
-
-setHeaders(headers);
 
 // Render the app
 const rootElement = document.getElementById('root')!
