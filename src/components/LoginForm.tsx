@@ -5,6 +5,7 @@ import { useSearch } from "@tanstack/react-router";
 import { router } from "../main";
 import { LoginFormData } from "../types/LoginFormData";
 import { Box, Button, FormControl, TextField } from "@mui/material";
+import ErrorMessage from "./ErrorMessage";
 
 type LoginFormProps = {
     loginFunction: (data: LoginFormData, signIn: (user: CurrentUser) => Promise<void>) => Promise<void>,
@@ -29,6 +30,8 @@ export default function LoginForm({loginFunction, path}: LoginFormProps) {
         gender: ""
     });
 
+    const [error, setError] = useState<Error>();
+
     const search = useSearch({ from: path}) as {redirect:string};
 
     const handleChange = (event : React.ChangeEvent<HTMLInputElement>) => {
@@ -52,8 +55,8 @@ export default function LoginForm({loginFunction, path}: LoginFormProps) {
         try {
             await loginFunction(data, setUser);
             redirectAfterLogin();
-        } catch (e) {
-            throw e as Error;
+        } catch (e: any) {
+            setError(e)
         }
     }
 
@@ -107,9 +110,14 @@ export default function LoginForm({loginFunction, path}: LoginFormProps) {
                 </>
             : null }
 
+            {  error === undefined ? '' : 
+                <Box sx={{ mb: 1}}>
+                    <ErrorMessage error={error.message} /> 
+                </Box>
+            }
+
             <Button type="submit" variant="contained" >Submit</Button>
 
-        
         </Box>
     );
 }
