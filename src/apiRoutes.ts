@@ -1,4 +1,3 @@
-// TODO rename file, clean up.
 import { CurrentUser } from "./types/CurrentUser";
 import { Friendship } from "./types/Friendship";
 import { LoginFormData } from "./types/LoginFormData";
@@ -61,10 +60,10 @@ async function apiCall<T, R>(method: Method, slug: string, data?: T): Promise<R>
 
     } catch (error) {
         console.error({message: getErrorMessage(error)});
-        // TODO IMPORTANT update this. This is a bandaid for type safety. 
-        return new Promise(()=>{});
+        throw error
     }
 }
+
 
 
 // TODO move to error handling

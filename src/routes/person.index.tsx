@@ -3,7 +3,7 @@ import PersonForm from '../components/PersonForm'
 import AllPersons from '../components/AllPersons'
 import { useEffect, useState } from 'react';
 import Person from '../types/Person';
-import { getAllPersons } from '../api';
+import { getAllPersons } from '../apiRoutes';
 import { Box, Grid2 as Grid, Typography } from '@mui/material';
 import { isAuthenticated } from '../services/auth';
 

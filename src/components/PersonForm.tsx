@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createPerson } from "../api";
+import { createPerson } from "../apiRoutes";
 import Person from "../types/Person";
 
 type PersonFormProps = {

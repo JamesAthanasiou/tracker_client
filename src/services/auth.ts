@@ -1,4 +1,4 @@
-import { login as apiLogin, signup as apiSignup } from "../api";
+import { login as apiLogin, signup as apiSignup } from "../apiRoutes";
 import { CurrentUser } from "../types/CurrentUser";
 import { LoginFormData } from "../types/LoginFormData";
 import { UserLogin } from "../types/UserLogin";

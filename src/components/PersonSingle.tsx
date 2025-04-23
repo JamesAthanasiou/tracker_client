@@ -2,7 +2,7 @@ import { useNavigate } from "@tanstack/react-router";
 import Person from "../types/Person"
 import CurrentFriends from "./CurrentFriends";
 import FormFriendship from "./FriendshipForm";
-import { deletePerson } from "../api";
+import { deletePerson } from "../apiRoutes";
 
 type PersonSingleProps = {
     person: Person

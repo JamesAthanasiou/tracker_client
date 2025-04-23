@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Person from "../types/Person";
-import { createFriendship, getAllPersons } from "../api";
+import { createFriendship, getAllPersons } from "../apiRoutes";
 import { Friendship } from "../types/Friendship";
 
 type FriendFormProps = {

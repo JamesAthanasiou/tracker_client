@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Person from "../types/Person";
-import { getFriends } from "../api";
+import { getFriends } from "../apiRoutes";
 
 type CurrentFriendsProps = {
     person_id: number;
